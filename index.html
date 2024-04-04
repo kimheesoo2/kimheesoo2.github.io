@@ -6,22 +6,69 @@
     <title>나의 블로그</title>
 </head>
 <body>
-    <header>
-        <h1>나의 블로그</h1>
-        <nav>
-            <ul>
-                <li><a href="#">홈</a></li>
-                <li><a href="#">블로그</a></li>
-                <li><a href="#">소개</a></li>
-                <!-- 필요한 다른 메뉴 항목들을 추가할 수 있습니다 -->
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <!-- 여기에 블로그 게시물들을 추가합니다 -->
-    </main>
-    <footer>
-        <p>&copy; 2024 나의 블로그. 모든 권리 보유됨.</p>
-    </footer>
+    <h1>나의 블로그</h1>
+
+    <!-- 게시물 작성 폼 -->
+    <form id="postForm">
+        <label for="title">제목:</label><br>
+        <input type="text" id="title" name="title"><br>
+        <label for="date">날짜:</label><br>
+        <input type="date" id="date" name="date"><br> <!-- 날짜 입력 필드 추가 -->
+        <label for="content">내용:</label><br>
+        <textarea id="content" name="content" rows="4" cols="50"></textarea><br>
+        <button type="submit">게시물 작성</button>
+    </form>
+
+    <!-- 게시물을 표시할 영역 -->
+    <div id="posts"></div>
+
+    <script>
+        // 게시물 작성 폼 제출 시 실행되는 함수
+        document.getElementById("postForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // 폼 제출 기본 동작 방지
+
+            // 사용자가 입력한 제목, 날짜, 내용 가져오기
+            var title = document.getElementById("title").value;
+            var date = document.getElementById("date").value;
+            var content = document.getElementById("content").value;
+
+            // 게시물 추가 함수 호출
+            addPost(title, date, content);
+
+            // 입력 필드 초기화
+            document.getElementById("title").value = "";
+            document.getElementById("date").value = "";
+            document.getElementById("content").value = "";
+        });
+
+        // 게시물 추가 함수
+        function addPost(title, date, content) {
+            // 게시물 요소 생성
+            var postElement = document.createElement("div");
+            postElement.innerHTML = "<h2>" + title + "</h2><p><strong>날짜: </strong>" + date + "</p><p>" + content + "</p>";
+
+            // 수정 및 삭제 버튼 추가
+            var editButton = document.createElement("button");
+            editButton.textContent = "수정";
+            editButton.addEventListener("click", function() {
+                // 수정 기능 구현
+                // 사용자가 게시물을 수정할 수 있는 모달 창 또는 폼을 표시하고,
+                // 해당 게시물의 내용을 수정할 수 있도록 구현
+            });
+            postElement.appendChild(editButton);
+
+            var deleteButton = document.createElement("button");
+            deleteButton.textContent = "삭제";
+            deleteButton.addEventListener("click", function() {
+                // 삭제 기능 구현
+                // 해당 게시물을 삭제하는 동작을 구현
+                postElement.remove(); // 예시로 해당 게시물을 삭제하는 방법을 보여줍니다.
+            });
+            postElement.appendChild(deleteButton);
+
+            // 게시물을 표시할 영역에 추가
+            document.getElementById("posts").appendChild(postElement);
+        }
+    </script>
 </body>
 </html>
